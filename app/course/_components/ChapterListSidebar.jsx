@@ -17,7 +17,7 @@ function ChapterListSidebar({ courseInfo, loading, isSidebarOpen, toggleSidebar 
 
     if (loading) {
         return (
-            <div className='bg-secondary h-screen p-4 border-r flex flex-col'>
+            <div className='bg-secondary h-full p-4 border-r flex flex-col'>
                 <div className="flex items-center justify-between mb-4">
                     <div className="h-8 bg-gray-200 rounded-md w-32 animate-pulse"></div>
                     <div className="h-8 w-8 bg-gray-200 rounded-md animate-pulse"></div>
@@ -33,7 +33,7 @@ function ChapterListSidebar({ courseInfo, loading, isSidebarOpen, toggleSidebar 
 
     if (!Array.isArray(courseContent) || courseContent.length === 0) {
         return (
-            <div className='bg-secondary h-screen p-4 border-r flex flex-col'>
+            <div className='bg-secondary h-full p-4 border-r flex flex-col'>
                 <div className="flex items-center justify-between mb-4">
                     {isSidebarOpen && <h2 className='font-bold text-xl truncate'>Chapters</h2>}
                     <button onClick={toggleSidebar} className="p-2 hover:bg-gray-200 rounded-md ml-auto">
@@ -46,8 +46,10 @@ function ChapterListSidebar({ courseInfo, loading, isSidebarOpen, toggleSidebar 
     }
 
     return (
-        <div className={`
-            bg-secondary h-screen border-r overflow-y-auto transition-all duration-300 ease-in-out flex flex-col
+        <div
+            data-lenis-prevent
+            className={`
+            bg-secondary h-full border-r overflow-y-auto overscroll-contain transition-all duration-300 ease-in-out flex flex-col
             ${isSidebarOpen
                 ? 'w-64 sm:w-72 md:w-80 p-3 sm:p-4'
                 : 'w-14 sm:w-16 p-2'}

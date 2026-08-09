@@ -78,20 +78,20 @@ function Course() {
 
     return (
         <SelectedChapterIndexContext.Provider value={contextValue}>
-            <div>
+            <div className='flex flex-col h-screen overflow-hidden'>
                 <AppHeader hideSidebar={true} />
                 {isEnrolled ? (
                     // --- RENDER COURSE CONTENT IF ENROLLED ---
-                    // This part uses your original logic and components
-                    <div className='flex'>
-                        <div className={`transition-all duration-300 ${isSidebarOpen ? 'w-80' : 'w-20'}`}>
+                    // Fixed flex split pane layout with independent scrolling
+                    <div className='flex flex-1 overflow-hidden'>
+                        <div className={`transition-all duration-300 h-full ${isSidebarOpen ? 'w-80' : 'w-20'}`}>
                             <ChapterListSidebar
                                 courseInfo={enrolledCourseInfo}
                                 isSidebarOpen={isSidebarOpen}
                                 toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
                             />
                         </div>
-                        <div className='flex-1 h-screen overflow-y-auto'>
+                        <div className='flex-1 h-full overflow-y-auto overscroll-contain' data-lenis-prevent>
                             <ChapterContent
                                 courseInfo={enrolledCourseInfo}
                                 refreshData={checkEnrollmentAndFetchData}
@@ -100,7 +100,7 @@ function Course() {
                     </div>
                 ) : (
                     // --- RENDER ENROLL PROMPT IF NOT ENROLLED ---
-                    <div className="flex flex-col items-center justify-center h-screen text-center p-8">
+                    <div className="flex-1 flex flex-col items-center justify-center text-center p-8 overflow-y-auto">
                         <BookOpen className="h-24 w-24 text-gray-400 mb-6" />
                         <h1 className="text-3xl font-bold mb-2">{publicCourseDetails?.name}</h1>
                         <p className="text-gray-600 max-w-xl mb-6">{publicCourseDetails?.description}</p>

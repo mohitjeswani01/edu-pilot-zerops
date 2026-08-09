@@ -71,7 +71,7 @@ function ChapterContent({ courseInfo, loading, refreshData }) {
     const isCompleted = completedChapters.includes(selectedChapterIndex);
 
     return (
-        <div className='p-5 sm:p-8 md:p-10 max-w-screen-lg mx-auto'>
+        <div className='p-5 sm:p-8 md:p-10 pb-20 max-w-screen-lg mx-auto'>
             <div className='flex justify-between items-center flex-wrap gap-2 mb-6'>
                 <h2 className='font-bold text-xl sm:text-2xl'>
                     {selectedChapterIndex + 1}. {activeChapter?.courseData?.chapterName}

@@ -8,7 +8,7 @@ export default function SmoothScroll() {
         const lenis = new Lenis({
             duration: 1.2, // Adjust speed (higher is slower)
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function
-            smoothTouch: true, // Enable smooth scroll on touch devices
+            prevent: (node) => node.classList?.contains('overflow-y-auto') || node.hasAttribute?.('data-lenis-prevent'),
         });
 
         function raf(time) {
