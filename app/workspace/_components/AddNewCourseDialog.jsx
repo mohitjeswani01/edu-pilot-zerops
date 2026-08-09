@@ -35,7 +35,7 @@ function AddNewCourseDialog({ children }) {
         noOfChapters: 1,
         includeVideo: false,
         level: '',
-        category: ''
+        catetgory: ''
     });
     const router = useRouter();
 
@@ -56,12 +56,6 @@ function AddNewCourseDialog({ children }) {
                 ...formData,
                 courseId: courseId
             });
-
-            if (result.data.resp === 'limit exceeded!') {
-                toast.warning('Please Subscribe to paid plans! (Team Edu-Pilot🚀)');
-                router.push('/workspace/billing');
-                return;
-            }
 
             if (!result.data?.courseId) {
                 toast.error('Course could not be generated. Please try again.');
@@ -115,7 +109,7 @@ function AddNewCourseDialog({ children }) {
                             </div>
                             <div>
                                 <label>Category</label>
-                                <Textarea placeholder="Category (Separated by Comma)" onChange={(event) => onHandleInputChange('category', event?.target.value)} />
+                                <Textarea placeholder="Category (Separated by Comma)" onChange={(event) => onHandleInputChange('catetgory', event?.target.value)} />
                             </div>
                             <div className='mt-5'>
                                 <Button className="w-full" onClick={onGenerate} disabled={loading}>
