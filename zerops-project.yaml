@@ -1,0 +1,5 @@
+project:
+  name: edu-pilot
+services:
+  - hostname: app
+    type: nodejs@20
