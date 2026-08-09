@@ -10,6 +10,7 @@ zerops:
         - public
         - package.json
         - node_modules
+        - next.config.mjs
       cache:
         - node_modules
         - .next/cache
