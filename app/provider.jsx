@@ -1,34 +1,38 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { useUser } from '@clerk/nextjs';
 import axios from 'axios';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { SelectedChapterIndexContext } from '@/context/SelectedChapterIndexContext';
 
-function Provider({ children }) {
+const DEMO_USER = {
+    id: "demo-user",
+    name: "Demo User",
+    email: "demo@edu-pilot.app"
+};
 
-    const { user } = useUser();
-    const [userDetail, setUserDetail] = useState();
+function Provider({ children }) {
+    const [userDetail, setUserDetail] = useState(DEMO_USER);
     const [selectedChapterIndex, setSelectedChapterIndex] = useState(0);
 
     useEffect(() => {
-        if (user) createNewUser();
-    }, [user]);
+        createNewUser();
+    }, []);
 
     const createNewUser = async () => {
-        const name = user?.fullName || user?.firstName || "Anonymous User";
-        const email = user?.primaryEmailAddress?.emailAddress;
-
-        console.log("Creating user with:", name, email);
-
+        console.log("Initializing demo user:", DEMO_USER.name, DEMO_USER.email);
         try {
-            const result = await axios.post('/api/user', { name, email });
-            console.log("Server returned:", result.data);
-            setUserDetail(result.data);
+            const result = await axios.post('/api/user', {
+                name: DEMO_USER.name,
+                email: DEMO_USER.email
+            });
+            console.log("Server returned user detail:", result.data);
+            if (result.data && !result.data.error) {
+                setUserDetail(result.data);
+            }
         } catch (err) {
-            console.error("API Error:", err);
+            console.error("API Error in createNewUser:", err);
         }
-    }
+    };
 
     return (
         <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
@@ -36,7 +40,8 @@ function Provider({ children }) {
                 <div>{children}</div>
             </SelectedChapterIndexContext.Provider>
         </UserDetailContext.Provider>
-    )
+    );
 }
 
 export default Provider;
+

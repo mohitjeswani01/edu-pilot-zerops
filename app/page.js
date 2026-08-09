@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
 import Link from 'next/link';
 import Image from 'next/image';
 import { Rocket, PlayCircle, Sparkles, PenSquare, HandCoins, ArrowRight, Milestone, Twitter, Instagram, Linkedin } from 'lucide-react';
+
 export default function Home() {
   return (
     <div className="bg-white text-gray-800 antialiased font-sans">
@@ -18,10 +18,9 @@ export default function Home() {
             <a href="#testimonials" className="text-gray-600 hover:text-blue-600 transition-colors">Testimonials</a>
           </nav>
           <div className="flex items-center space-x-4">
-            <Link href="/workspace" className="hidden sm:block">
+            <Link href="/workspace">
               <Button>Go to Dashboard</Button>
             </Link>
-            <UserButton afterSignOutUrl="/" />
           </div>
         </div>
       </header>
@@ -251,7 +250,7 @@ export default function Home() {
             <div className="mt-8">
               <Link href="/workspace">
                 <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-4 shadow-lg transform transition hover:scale-105">
-                  Sign Up for Free
+                  Get Started for Free
                 </Button>
               </Link>
               <p className="text-sm text-blue-200 mt-4">No credit card required. Cancel anytime.</p>

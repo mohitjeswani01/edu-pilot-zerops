@@ -1,7 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { useUser } from '@clerk/nextjs';
 import { Search } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import CourseCard from '../_components/CourseCard';
@@ -11,13 +10,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 function Explore() {
     const [courseList, setCourseList] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { user } = useUser();
 
     useEffect(() => {
-        if (user) {
-            getCourseList();
-        }
-    }, [user]);
+        getCourseList();
+    }, []);
 
     const getCourseList = async () => {
         try {

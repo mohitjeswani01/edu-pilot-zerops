@@ -3,22 +3,18 @@ import React, { useEffect, useState } from 'react'
 import WelcomeBanner from '../_components/WelcomeBanner'
 import EnrollCourseList from '../_components/EnrollCourseList'
 import axios from 'axios'
-import { useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { BookOpenCheck } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 
 function MyLearning() {
-    const { user } = useUser();
     const [userEnrolledCourses, setUserEnrolledCourses] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (user) {
-            getUserEnrolledCourses();
-        }
-    }, [user]);
+        getUserEnrolledCourses();
+    }, []);
 
     // Fetches the list of enrolled courses for the current user
     const getUserEnrolledCourses = async () => {

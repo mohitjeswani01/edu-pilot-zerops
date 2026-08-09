@@ -1,4 +1,3 @@
-import { ClerkProvider } from '@clerk/nextjs';
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Provider from './provider';
@@ -22,16 +21,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <SmoothScroll /> {/* 2. Add the component here to enable it globally */}
-          <Provider>
-            {children}
-            <Toaster />
-          </Provider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <SmoothScroll /> {/* 2. Add the component here to enable it globally */}
+        <Provider>
+          {children}
+        </Provider>
+        <Toaster />
+      </body>
+    </html>
   );
 }

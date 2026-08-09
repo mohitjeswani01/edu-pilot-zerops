@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 import { eq, sql } from "drizzle-orm";
 import { desc } from "drizzle-orm";
 import { coursesTable } from "@/config/schema";
-import { currentUser } from "@clerk/nextjs/server";
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);

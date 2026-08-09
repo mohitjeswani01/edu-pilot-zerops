@@ -3,19 +3,15 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import AddNewCourseDialog from './AddNewCourseDialog';
-import { useUser } from '@clerk/nextjs';
 import axios from 'axios';
 import CourseCard from './CourseCard';
 
 function CourseList() {
     const [courseList, setCourseList] = useState([]);
-    const { user } = useUser();
 
     useEffect(() => {
-        if (user) {
-            getCourseList();
-        }
-    }, [user]);
+        getCourseList();
+    }, []);
 
     const getCourseList = async () => {
         try {

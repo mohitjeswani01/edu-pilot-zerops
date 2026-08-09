@@ -1,6 +1,7 @@
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 
-const pg = neon(process.env.DATABASE_URL);
-// drizzle expects just the neon client here
+const connectionString = process.env.DATABASE_URL || 'postgresql://placeholder:placeholder@localhost:5432/edupilot';
+const pg = neon(connectionString);
 export const db = drizzle(pg);
+

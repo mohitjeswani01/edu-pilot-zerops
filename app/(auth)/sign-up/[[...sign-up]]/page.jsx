@@ -1,9 +1,6 @@
-import { SignUp } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 export default function SignUpPage() {
-    return (
-        <div className="flex items-center justify-center min-h-screen">
-            <SignUp signIpUrl="/sign-in" />
-        </div>
-    );
+    redirect("/workspace");
 }
+

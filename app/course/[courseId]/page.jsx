@@ -5,7 +5,6 @@ import ChapterListSidebar from '../_components/ChapterListSidebar'
 import ChapterContent from '../_components/ChapterContent'
 import { useParams, useRouter } from 'next/navigation'
 import axios from 'axios'
-import { useUser } from '@clerk/nextjs'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { BookOpen } from 'lucide-react'
@@ -13,7 +12,6 @@ import { SelectedChapterIndexContext } from '@/context/SelectedChapterIndexConte
 
 function Course() {
     const { courseId } = useParams();
-    const { user } = useUser();
     const router = useRouter();
 
     // State for the public course details (name, description, etc.)
@@ -26,11 +24,10 @@ function Course() {
     const [selectedChapterIndex, setSelectedChapterIndex] = useState(0);
 
     useEffect(() => {
-        if (user && courseId) {
-            // This function now handles all scenarios
+        if (courseId) {
             checkEnrollmentAndFetchData();
         }
-    }, [user, courseId]);
+    }, [courseId]);
 
     // This new function checks for enrollment first
     const checkEnrollmentAndFetchData = async () => {
