@@ -87,21 +87,40 @@ export async function POST(req) {
 }
 
 const GenerateImage = async (imagePrompt) => {
-    const BASE_URL = 'https://aigurulab.tech';
-    const result = await axios.post(BASE_URL + '/api/generate-image',
-        {
-            width: 1024,
-            height: 1024,
-            input: imagePrompt,
-            model: 'flux',
-            aspectRatio: "16:9"
-        },
-        {
-            headers: {
-                'x-api-key': process.env.AI_GURU_LAB_API_KEY,
-                'Content-Type': 'application/json',
+    if (!imagePrompt || !process.env.AI_GURU_LAB_API_KEY) {
+        console.warn("[AI Guru Lab] Skipping image generation: Missing banner image prompt or AI_GURU_LAB_API_KEY.");
+        return '/default_image.jpg';
+    }
+
+    try {
+        console.log("[AI Guru Lab] Generating banner image with AI Guru Lab...");
+        const BASE_URL = 'https://aigurulab.tech';
+        const result = await axios.post(BASE_URL + '/api/generate-image',
+            {
+                width: 1024,
+                height: 1024,
+                input: imagePrompt,
+                model: 'flux',
+                aspectRatio: "16:9"
             },
-        });
-    console.log("Image generation successful.");
-    return result.data.image;
-}
+            {
+                headers: {
+                    'x-api-key': process.env.AI_GURU_LAB_API_KEY,
+                    'Content-Type': 'application/json',
+                },
+                timeout: 15000
+            });
+
+        if (result?.data?.image) {
+            console.log("✅ [AI Guru Lab] Image generation successful.");
+            return result.data.image;
+        }
+
+        console.warn("[AI Guru Lab] No image returned in response data. Falling back to default banner.");
+        return '/default_image.jpg';
+    } catch (error) {
+        console.error("❌ [AI Guru Lab] Image generation failed:", error?.response?.data || error?.message || error);
+        return '/default_image.jpg';
+    }
+};
+
