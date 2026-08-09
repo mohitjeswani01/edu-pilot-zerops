@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
+        unoptimized: true,
         remotePatterns: [
             {
                 protocol: 'https',
@@ -10,11 +11,17 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
+                hostname: 'aigurulab.tech',
+                port: '',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
                 hostname: 'i.pravatar.cc',
                 port: '',
                 pathname: '/**',
             },
-            { // Add this new block for Unsplash images
+            {
                 protocol: 'https',
                 hostname: 'images.unsplash.com',
                 port: '',
