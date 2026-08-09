@@ -3,7 +3,7 @@ zerops:
     build:
       base: nodejs@20
       buildCommands:
-        - npm ci
+        - npm install
         - npm run build
       deployFiles:
         - .next
