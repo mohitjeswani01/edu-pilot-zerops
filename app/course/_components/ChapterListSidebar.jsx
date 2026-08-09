@@ -6,8 +6,9 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SelectedChapterIndexContext } from '@/context/SelectedChapterIndexContext';
-import { ChevronsRightLeft, CheckCircle } from 'lucide-react';
+import { ChevronsRightLeft, CheckCircle, ArrowLeft } from 'lucide-react';
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
+import Link from 'next/link';
 
 function ChapterListSidebar({ courseInfo, loading, isSidebarOpen, toggleSidebar }) {
     const courseContent = courseInfo?.[0]?.courses?.courseContent;
@@ -54,11 +55,14 @@ function ChapterListSidebar({ courseInfo, loading, isSidebarOpen, toggleSidebar 
                 ? 'w-64 sm:w-72 md:w-80 p-3 sm:p-4'
                 : 'w-14 sm:w-16 p-2'}
         `}>
-            <div className="sticky top-0 z-10 bg-secondary pb-2 flex items-center justify-between">
+            <div className="sticky top-0 z-10 bg-secondary pb-2 flex items-center justify-between gap-2 border-b mb-2">
+                <Link href="/workspace" className="p-1.5 hover:bg-gray-200 rounded-md text-gray-700 transition-colors flex items-center gap-1" title="Back to Dashboard">
+                    <ArrowLeft className="h-5 w-5" />
+                </Link>
                 {isSidebarOpen && (
-                    <h2 className='font-bold text-xl truncate'>Chapters ({courseContent.length})</h2>
+                    <h2 className='font-bold text-lg truncate flex-1'>Chapters ({courseContent.length})</h2>
                 )}
-                <button onClick={toggleSidebar} className="p-2 hover:bg-gray-200 rounded-md ml-auto">
+                <button onClick={toggleSidebar} className="p-2 hover:bg-gray-200 rounded-md ml-auto" title="Toggle Sidebar">
                     <ChevronsRightLeft className="h-5 w-5" />
                 </button>
             </div>
