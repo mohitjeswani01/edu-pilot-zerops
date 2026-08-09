@@ -70,14 +70,19 @@ export async function GET(req) {
 }
 
 export async function PUT(req) {
-    const { completedChapter, courseId } = await req.json();
+    try {
+        const { completedChapter, courseId } = await req.json();
 
-    const result = await db.update(enrollCourseTable).set({
-        completedChapters: completedChapter
-    }).where(and(
-        eq(enrollCourseTable.cid, courseId),
-        eq(enrollCourseTable.userEmail, DEMO_USER_EMAIL)
-    )).returning(enrollCourseTable);
+        const result = await db.update(enrollCourseTable).set({
+            completedChapters: completedChapter
+        }).where(and(
+            eq(enrollCourseTable.cid, courseId),
+            eq(enrollCourseTable.userEmail, DEMO_USER_EMAIL)
+        )).returning(enrollCourseTable);
 
-    return NextResponse.json(result);
+        return NextResponse.json(result);
+    } catch (error) {
+        console.error("[UPDATE_PROGRESS_ERROR]", error);
+        return NextResponse.json({ error: "Failed to update progress" }, { status: 500 });
+    }
 }
