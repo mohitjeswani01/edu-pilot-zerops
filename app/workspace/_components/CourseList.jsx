@@ -6,7 +6,7 @@ import AddNewCourseDialog from './AddNewCourseDialog';
 import axios from 'axios';
 import CourseCard from './CourseCard';
 
-function CourseList() {
+function CourseList({ onCourseDeleted }) {
     const [courseList, setCourseList] = useState([]);
 
     useEffect(() => {
@@ -21,6 +21,12 @@ function CourseList() {
         } catch (error) {
             console.error("Failed to fetch courses:", error);
         }
+    };
+
+    const handleRefresh = () => {
+        getCourseList();
+        // Also notify parent to refresh enrolled courses list (Continue Learning section)
+        if (onCourseDeleted) onCourseDeleted();
     };
 
     return (
@@ -46,7 +52,7 @@ function CourseList() {
             ) : (
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 mt-5'>
                     {courseList.map((course) => (
-                        <CourseCard course={course} key={course.cid} />
+                        <CourseCard course={course} key={course.cid} refreshData={handleRefresh} />
                     ))}
                 </div>
             )}
